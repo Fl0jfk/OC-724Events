@@ -1,3 +1,4 @@
+import { useData } from "../../contexts/DataContext";
 import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
@@ -10,10 +11,9 @@ import Logo from "../../components/Logo";
 import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
-import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+  const { data } = useData();
   return <>
     <header>
       <Menu />
@@ -117,11 +117,7 @@ const Page = () => {
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
         <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
+          key={data?.id} imageSrc={data?.cover} title={data?.title} date={data?.periode} small label="boom" imageAlt="Image de notre dernière prestation"
         />
       </div>
       <div className="col contact">
