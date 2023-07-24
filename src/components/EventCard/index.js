@@ -3,12 +3,11 @@ import { getMonth } from "../../helpers/Date";
 
 import "./style.scss";
 
-const EventCard = ({imageSrc, imageAlt, date = new Date(), title, label, small = false, ...props}) => (
+const EventCard = ({imageSrc, imageAlt, date = new Date(), title, label, small = false}) => (
   
     <div
       data-testid="card-testid"
       className={`EventCard${small ? " EventCard--small" : ""}`}
-      {...props}
     >
       <div className="EventCard__imageContainer">
         <img data-testid="card-image-testid" src={imageSrc} alt={imageAlt} />
@@ -20,7 +19,6 @@ const EventCard = ({imageSrc, imageAlt, date = new Date(), title, label, small =
       </div>
     </div>
   );
-
 EventCard.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   imageAlt: PropTypes.string,
