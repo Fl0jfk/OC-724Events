@@ -3,7 +3,6 @@ import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
 import PeopleCard from "../../components/PeopleCard";
-
 import "./style.scss";
 import EventList from "../../containers/Events";
 import Slider from "../../containers/Slider";
@@ -13,7 +12,18 @@ import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 
 const Page = () => {
-  const {last} = useData()
+  const {data} = useData();
+  const last = data?.events.reduce((previousEvent, currentEvent) => {
+    const previousDate = new Date(previousEvent.date);
+    const currentDate = new Date(currentEvent.date);
+    return previousDate > currentDate ? previousEvent : currentEvent;
+  });
+  const lastProps = {
+    cover: "",
+    title: "",
+    date: "",
+    ...last,
+  };
   return <>
     <header>
       <Menu />
@@ -115,10 +125,8 @@ const Page = () => {
     </main>
     <footer className="row">
       <div className="col presta">
-        <h3>Notre derniére prestation</h3>
-      {(last) ? <EventCard
-           imageSrc={last.cover} title={last.title} date={new Date(last.date)} small label="boom" imageAlt="Image de notre dernière prestation"
-        /> : "" }
+        <h3>Notre dernière prestation</h3>
+       <EventCard imageSrc={lastProps.cover} title={lastProps.title} date={new Date(lastProps.date)} small label="boom" imageAlt="Image de notre dernière prestation"/>
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
@@ -143,7 +151,7 @@ const Page = () => {
       <div className="col description">
         <Logo size="large" />
         <p>
-          Une agence événementielle propose des prestations de service
+          Une agence événementielle qui propose des prestations de service
           spécialisées dans la conception et l&apos;organisation de divers événements
           tels que des événements festifs, des manifestations sportives et
           culturelles, des événements professionnels
