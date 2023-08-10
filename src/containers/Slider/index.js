@@ -17,7 +17,10 @@ const Slider = () => {
         );
     };
     useEffect(() => {
-        nextCard();
+        if(byDateDesc){
+            nextCard();
+        }
+       
     });
 
     return (
