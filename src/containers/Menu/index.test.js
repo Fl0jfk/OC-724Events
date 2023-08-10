@@ -24,4 +24,3 @@ describe("When Menu is created", () => {
     });
   });
 });
-

@@ -109,4 +109,3 @@ describe("When Events is created", () => {
     });
   });
 });
-

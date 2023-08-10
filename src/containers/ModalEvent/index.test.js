@@ -29,4 +29,3 @@ describe("When Modal data is created", () => {
     await screen.findByText("Conférence #productCON");
   });
 });
-
