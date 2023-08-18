@@ -4,7 +4,6 @@ import Select from "../../components/Select";
 import { useData } from "../../contexts/DataContext";
 import Modal from "../Modal";
 import ModalEvent from "../ModalEvent";
-
 import "./style.css";
 
 const PER_PAGE = 9;
@@ -49,10 +48,7 @@ const EventList = () => {
                     />
                     <div id="events" className="ListContainer">
                         {filteredEvents?.map((event) => (
-                            <Modal
-                                key={event.id}
-                                Content={<ModalEvent event={event} />}
-                            >
+                            <Modal key={event.id} Content={<ModalEvent event={event} />}>
                                 {({ setIsOpened }) => (
                                     <EventCard
                                         onClick={() => setIsOpened(true)}

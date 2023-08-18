@@ -2,7 +2,6 @@ import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
 import PeopleCard from "../../components/PeopleCard";
-
 import "./style.scss";
 import EventList from "../../containers/Events";
 import Slider from "../../containers/Slider";
@@ -14,18 +13,9 @@ import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
   const { data } = useData();
-  const last = data?.events.reduce((previousEvent, currentEvent) => {
-    const previousDate = new Date(previousEvent.date);
-    const currentDate = new Date(currentEvent.date);
-    return previousDate > currentDate ? previousEvent : currentEvent;
-  });
-  const lastProps = {
-    cover: "",
-    title: "",
-    date: "",
-    ...last,
-};
-  return <>
+  const last  = data?.events?.sort((evtA, evtB) =>
+     new Date(evtB.date) - new Date(evtA.date))[0];
+    return <>
     <header>
       <Menu />
     </header>
@@ -33,8 +23,8 @@ const Page = () => {
       <section className="SliderContainer">
         <Slider />
       </section>
-      <section id="nos-services" className="ServicesContainer">
-        <h2 className="Title">Nos services</h2>
+      <section className="ServicesContainer">
+        <h2 id="nos-services" className="Title">Nos services</h2>
         <p>Nous organisons des événements sur mesure partout dans le monde</p>
         <div className="ListContainer">
           <ServiceCard imageSrc="/images/priscilla-du-preez-Q7wGvnbuwj0-unsplash1.png">
@@ -62,8 +52,8 @@ const Page = () => {
           </ServiceCard>
         </div>
       </section>
-      <section id="nos-realisations" className="EventsContainer">
-        <h2 className="Title">Nos réalisations</h2>
+      <section className="EventsContainer">
+        <h2 id="nos-realisations" className="Title">Nos réalisations</h2>
         <EventList />
       </section>
       <section id="notre-equipe" className="PeoplesContainer">
@@ -116,10 +106,7 @@ const Page = () => {
           }
         >
           {({ setIsOpened }) => (
-            <Form
-              onSuccess={() => setIsOpened(true)}
-              onError={() => null}
-            />
+            <Form onSuccess={() => setIsOpened(true)} onError={() => null}/>
           )}
         </Modal>
       </div>
@@ -127,13 +114,9 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre dernière prestation</h3>
-        <EventCard
-          imageSrc={lastProps?.cover}
-          title={lastProps?.title}
-          date={new Date(lastProps?.date)}
-          small
-          label="boom"
-        />
+        {last && (
+        <EventCard imageSrc={last?.cover} title={last?.title} date={new Date(last?.date)} small label="boom"/>
+        )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
@@ -158,7 +141,7 @@ const Page = () => {
       <div className="col description">
         <Logo size="large" />
         <p>
-          Une agence événementielle qui propose des prestations de service
+          Une agence événementielle propose des prestations de service
           spécialisées dans la conception et l&apos;organisation de divers événements
           tels que des événements festifs, des manifestations sportives et
           culturelles, des événements professionnels

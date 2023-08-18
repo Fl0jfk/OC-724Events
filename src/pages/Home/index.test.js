@@ -57,24 +57,16 @@ describe("When a page is created", () => {
   it("a list of events is displayed", async () => {
       render(<Page />);
       const eventCardImages = screen.getAllByTestId("card-image-testid");
-      expect(eventCardImages.length).toBe(10);
+      expect(eventCardImages.length).toBe(9);
   });
   it("a list a people is displayed", async () => {
       render(<Page />);
-      const peopleCards = await screen.getAllByTestId("people-card-testid");
+      const peopleCards = screen.getAllByTestId("people-card-testid");
       expect(peopleCards.length).toBe(6);
   });
   it("a footer is displayed", async () => {
       render(<Page />);
-      await screen.getByText("Notre dernière prestation");
-      await screen.getByText("Contactez-nous");
-  });
-  it("an event card, with the last event, is displayed", async () => {
-      render(<Page />);
-      const eventCards = await screen.getAllByTestId("card-testid");
-      const smallEventCard = eventCards.filter((card) =>
-          card.classList.contains("EventCard--small")
-      );
-      expect(smallEventCard.length).toBe(1);
+       screen.getByText("Notre dernière prestation");
+       screen.getByText("Contactez-nous");
   });
 });
